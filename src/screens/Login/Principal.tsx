@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createStackNavigator, CardStyleInterpolators} from "@react-navigation/stack";
 import IndexScreen from "../users/IndexScreen";
-import Order from "../Order";
-import Reports from "../Reports";
+import Order from "../Notifications";
+
 import Icons from "react-native-vector-icons/FontAwesome";
 import Icons2 from "react-native-vector-icons/MaterialIcons";
 import Icons3 from "react-native-vector-icons/MaterialCommunityIcons";
