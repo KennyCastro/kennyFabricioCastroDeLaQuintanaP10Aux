@@ -1,12 +1,204 @@
 import React, { Component } from "react";
-import {View, Text, StyleSheet, Alert, FlatList} from "react-native";
+import {View, Text, StyleSheet, Alert, FlatList, TouchableHighlight, ImageBackgroundBase} from "react-native";
 import AppContext from "../../context/AppContext";
-import {IRoles, ItemUser} from "./ListUsers"
-import { Avatar, Button, Card, Title, Paragraph , Chip, Searchbar, List} from 'react-native-paper';
+import Icons from "react-native-vector-icons/Feather"
+import MyColors from "../../color/MyColors";
+import {createStackNavigator, StackNavigationProp} from "@react-navigation/stack"
+//import {IRoles, ItemUser, IClients, IPedido, IRecibo, ISimpleProducts} from "./TopTab/ClientsRegulars"
+import { Avatar, Button, Card, Title, Paragraph , Chip, Searchbar, List, Switch, FAB, Portal, Provider as ProviderFAB, DefaultTheme, withTheme} from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from "axios";
 import {Types} from "../../context/ContantTypes"; 
-interface MyState {
+import { Value } from "react-native-reanimated";
+import { DarkTheme } from "@react-navigation/native";
+import {IPost} from "./ListPost"
+
+
+
+
+
+interface ServerResponse {
+  serverResponse: Array<IPost>
+}
+interface MyProps {
+  navigation: StackNavigationProp<any, any>
+}
+class DetailUsers extends Component<MyProps, any> {
+  static contextType = AppContext;
+  
+  constructor(props: any) {
+    super(props);
+    this.state={
+      isEnable: false,
+      open: false,
+      systemPedido: [],
+    }
+   
+  }
+  async componentDidMount() {
+    var direccion: string = "http://192.168.100.9:8000/pedido/pedidos/"+this.context.itemclient._id;
+    var result: Array<IPost> = await axios.get<ServerResponse>(direccion).then((item) => {
+      return item.data.serverResponse
+    });
+    if(result==undefined){
+      result=[];
+    }
+    console.log("Hasta aqui llegue " +result+ "tambien aqui")
+    this.setState({
+      systemPedido: result,
+      
+    });
+  }
+
+  
+  
+  image(itempost: IPost){
+      if(itempost.image != null) {
+        console.log(itempost.image);
+        return <Card.Cover style= {styles.images} source={{ uri: 'http://192.168.100.9:8000' + itempost.image }} />
+      } else {
+       return <Avatar.Text size={178} style={styles.images} label={itempost.title.charAt(0)+itempost.title.charAt(1)} />
+      }
+
+  }
+
+
+ 
+
+ 
+
+
+  ExistsPedidos(){
+    
+  }
+ 
+  render() {
+    var itempost: IPost = this.context.itempost;
+
+    return (
+      <View style={{flex:1}}>
+      <KeyboardAwareScrollView >
+          <View style={styles.container}>
+              <View> 
+                <Card >
+                  <View style= {styles.Cabecera} >
+                    {this.image(itempost)}
+                      <View style={styles.contacto}>
+                        <Text style={styles.textoCabecera1}>Titulo: {itempost.title}</Text>
+                        <Text style={styles.textoCabecera2}>Descripción: {itempost.content}</Text>
+                     
+                        
+                       
+                      </View>
+                      
+                  </View>
+                  <View>
+                  <Card.Content>
+                      {/*<Title>{itemuser.username}</Title>*/}
+                      {/*<Paragraph style={styles.segundaCabecera}>Probabilidad de captar cliente: 90 %</Paragraph>*/}
+                      <Paragraph style={styles.segundaCabecera}>Fecha de creación: {itempost.createAt}</Paragraph>
+                    </Card.Content>
+
+                    <Card.Actions style={{justifyContent:"center"}}>
+                    <Button icon="account-edit" theme={DarkTheme} onPress={() => {
+
+                    }}>Edit</Button>
+                    <Button icon="delete" theme={DarkTheme} onPress={() => {
+                      Alert.alert("Borrar Post", "Desea Borrar el post? " + itempost.title, [
+                        {text: "Confirmar", onPress: () => {
+
+                        }},
+                        {text: "Cancelar", onPress: () => {
+
+                        }}
+                      ])
+                    }}>Borrar</Button>
+                  </Card.Actions>
+                  </View>
+  
+                           
+
+               </Card>
+                  
+                      
+                         
+                 
+              </View>
+           
+          </View>
+        </KeyboardAwareScrollView>
+      
+             
+            
+               
+
+          </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    flex: 1
+  },
+  cardViewContainer: {
+    marginTop: 10
+  },
+
+ 
+  Cabecera:{
+    
+  },
+  images:{
+    width: 350,
+    height: 270,
+    marginLeft: 10,
+    marginTop: 20,
+    borderRadius: 20,
+  },
+  contacto:{
+    marginTop: 20,
+    marginLeft: 20,
+  },
+  textoCabecera1: {
+      fontSize: 28,
+      textAlign:"center",
+  },
+  textoCabecera2: {
+    marginTop: 10,
+    fontSize: 20,
+    textAlign: "justify"
+  },
+ 
+ 
+  
+  segundaCabecera:{
+    marginTop: 20,
+    fontSize: 15,
+    marginBottom:"58%",
+    fontFamily: "sans-serif-medium",
+    textAlign: "center",
+  },
+
+});
+
+
+
+
+export default DetailUsers;
+
+
+
+
+
+
+
+
+
+
+
+/*interface MyState {
   systemroles: Array<IRoles>
 }
 interface ServerResponse {
@@ -154,4 +346,4 @@ const styles = StyleSheet.create({
     flexWrap:"wrap"
   }
 });
-export default DetailUsers;
+export default DetailUsers;*/

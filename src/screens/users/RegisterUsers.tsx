@@ -4,7 +4,26 @@ import {TextInput, Button, Avatar} from "react-native-paper";
 import {StackNavigationProp} from "@react-navigation/stack";
 import axios, { AxiosResponse } from "axios";
 import AppContext from "../../context/AppContext";
-interface ItemUser{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*interface ItemUser{
     username?: string,
     email?: string,
     password?: string,
@@ -60,16 +79,7 @@ class RegisterUsers extends Component<MyProps, Mystate> {
                 console.log(result);
                 navigation.push("list");
             });
-            /*var result_img = await axios.post("http://192.168.0.106:8000/api/uploadportrait/" + result.serverResponse._id, data,{
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }).then((response) => {
-                return response.data;
-            });
-            navigation.push("list");
-            //console.log(result_img);
-            */
+        
         }
         
     }
@@ -151,4 +161,4 @@ const styles = StyleSheet.create({
     }
 }   
 );
-export default RegisterUsers;
+export default RegisterUsers;*/

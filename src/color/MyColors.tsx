@@ -1,8 +1,8 @@
 abstract class MyColors {
-    public static maincolor = "#393e46";
-    public static secondary = "#00adb5";
-    public static thirth = "#aad8d3";
-    public static  lastcolor = "#eeeeee";
+    public static maincolor = "#053742";
+    public static secondary = "#39A2DB";
+    public static thirth = "#A2DBFA";
+    public static  lastcolor = "#E8F0F2";
 
 }
 export default MyColors;

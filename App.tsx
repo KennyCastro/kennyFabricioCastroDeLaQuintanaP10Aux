@@ -1,4 +1,65 @@
 import React, { Component } from "react";
+import {createStackNavigator, CardStyleInterpolators} from "@react-navigation/stack";
+import { NavigationContainer } from '@react-navigation/native';
+import {View, Text,StyleSheet, Platform} from "react-native"; 
+import {StackRouter} from "@react-navigation/native";
+import Index from "./src/screens/Login/Index";
+import Login from "./src/screens/Login/Login";
+import Principal from "./src/screens/Login/Principal";
+import DataState from "./src/context/AppState"
+import { NavigationEvents } from "react-navigation";
+const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
+var Stack = createStackNavigator();
+class App extends Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    
+  }
+  render() {
+    return (
+      <DataState>
+          <NavigationContainer independent={true} >
+              <Stack.Navigator screenOptions={{ headerShown: false}}>
+                  <Stack.Screen name="Index" component={Index}/>
+                 
+              </Stack.Navigator>
+          </NavigationContainer>
+      </DataState>
+      
+    )
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+})
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import React, { Component } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Clients from "./src/screens/users/Clients";
@@ -56,4 +117,4 @@ class App extends Component {
       </DataState>)
   }
 }
-export default App;
+export default App;*/

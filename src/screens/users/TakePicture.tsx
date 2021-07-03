@@ -4,7 +4,38 @@ import { RNCamera } from 'react-native-camera';
 import {Button} from "react-native-paper";
 import {StackNavigationProp} from "@react-navigation/stack";
 import AppContext from "../../context/AppContext";
-interface IParams {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*interface IParams {
     onTake: Function
 }
 interface IRoute{
@@ -90,4 +121,4 @@ const styles = StyleSheet.create({
       margin: 20,
     },
   });
-export default TakePicture;
+export default TakePicture;*/

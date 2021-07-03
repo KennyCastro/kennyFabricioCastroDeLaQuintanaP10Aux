@@ -5,13 +5,33 @@ export interface ActionType {
 }
 export default (state: any, action: ActionType) => {
     switch (action.type) {
+        case Types.CHANGEITEMPOST: {
+            return {
+                ...state,
+                itempost: action.payload
+            }
+        }
+
         case Types.CHANGEITEMUSER: {
             return {
                 ...state,
                 itemuser: action.payload
             }
         }
-        case Types.CHANGEURI: {
+
+        case Types.SIGN_IN: {
+            return {
+                ...state,
+                SignIn:action.payload
+            }
+        }
+        case Types.RESTORE_TOKEN:
+            return {
+              ...state,
+              userToken: action.payload,
+              
+        };
+        /*case Types.CHANGEURI: {
             return {
                 ...state,
                 uriphoto: action.payload
@@ -22,7 +42,7 @@ export default (state: any, action: ActionType) => {
                 ...state,
                 searchbarVisible: action.payload
             }
-        }
+        }*/
         default: {
             return state;
         }
