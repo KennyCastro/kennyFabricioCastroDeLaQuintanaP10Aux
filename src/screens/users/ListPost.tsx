@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import {createStackNavigator, StackNavigationProp} from "@react-navigation/stack"
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
-import {View, Text,StyleSheet, Platform, FlatList} from "react-native"; 
+import {View, Text,StyleSheet, Platform, FlatList, } from "react-native"; 
 import Icons from "react-native-vector-icons/AntDesign";
-import {Appbar, List, Avatar} from "react-native-paper"
+import {Appbar, List, Avatar, FAB} from "react-native-paper"
 import axios from "axios";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 /*import ListUsers from "./ListUsers";
 import RegisterUsers from "./RegisterUsers";
 import DetailUsers from "./DetailUsers";
 import TakePicture from "./TakePicture";*/
 import AppContext from "../../context/AppContext";
 import {Types} from "../../context/ContantTypes";
+import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 var Stack = createStackNavigator();
 interface ServerResponse {
@@ -56,7 +58,8 @@ class ListPost extends Component<MyProps,MyState> {
   listItem(item: IPost) {
     const {dispatch}= this.context
     //var item : ItemUser = params.item
-    if (item.image== null) {
+    //console.log(item.image+" este es la ruta de la imagennnn")
+    if (item.image== null || item.image=="") {
       //console.log(item.image)
       return <List.Item
       title={item.title}
@@ -69,7 +72,11 @@ class ListPost extends Component<MyProps,MyState> {
       />
       
     } else {
+      //console.log("sadasdasdasdasdasdasdasdas "+item.image+"aquyiiiiuhsdsdcsdc")
       var uriImg: string = "http://192.168.100.9:8000" + item.image;
+      if(uriImg==null){
+        uriImg=item.image 
+      }
       return <List.Item
                 title={item.title}
                 description={item.content}
@@ -100,10 +107,11 @@ class ListPost extends Component<MyProps,MyState> {
     var search = this.state.isPress;
     console.log(search);
     return (
+      
         <View style={styles.content}>
             <View>
               <Appbar.Header theme={DarkTheme}>
-                <Appbar.Content title="Lista de Productos" subtitle={'Items'} />
+                <Appbar.Content title="Lista de Post" subtitle={'Items'} />
                  <Appbar.Action icon="magnify"  onPress={() => {
                    this.changeSearchBarVisible(search);
                  }} />
@@ -122,11 +130,18 @@ class ListPost extends Component<MyProps,MyState> {
               />
             </View>
 
+            <FAB
+              style={styles.fab}
+              
+              icon="plus"
+              
+              onPress={() => this.props.navigation.push("RegisterPost")}
+            />
+
 
         </View>
 
-
-
+       
 
     )
   }
@@ -134,7 +149,14 @@ class ListPost extends Component<MyProps,MyState> {
 const styles= StyleSheet.create({
   content: {
     flex:1
-  }
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor:"#39A2DB"
+  },
 })
 export default ListPost;
 

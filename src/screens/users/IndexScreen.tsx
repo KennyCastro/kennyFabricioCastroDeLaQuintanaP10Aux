@@ -5,7 +5,9 @@ import {View, Text,StyleSheet, Platform} from "react-native";
 import {StackRouter} from "@react-navigation/native";
 import ListPost from "./ListPost";
 import DetailPost from "./DetailPost";
-import DetailUser from "./DetailUser";
+import RegisterPost from "./RegisterPost"
+import TakePicture from "./TakePicture"
+
 //import DataState from "./src/context/AppState"
 import { NavigationEvents } from "react-navigation";
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
@@ -23,8 +25,8 @@ class IndexScreen extends Component<any, any> {
               cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,}}>
                   <Stack.Screen name="ListPost" component={ListPost}/>
                   <Stack.Screen name="DetailPost" component={DetailPost}/>
-                  <Stack.Screen name="DetailUser" component={DetailUser}/>
-                
+                  <Stack.Screen name="RegisterPost" component={RegisterPost}/>
+                  <Stack.Screen name="TakePicture" component={TakePicture}/>
               </Stack.Navigator>
           </NavigationContainer>
         
